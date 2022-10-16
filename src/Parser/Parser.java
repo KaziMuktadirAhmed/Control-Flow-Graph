@@ -17,10 +17,13 @@ public class Parser {
         File input_file = new File(filePath);
         Scanner scan_file = new Scanner(input_file);
         while (scan_file.hasNextLine()) lines.add(scan_file.nextLine());
+        tokenizeWords(lines.get(0));
     }
 
-    private void tokenize(String line) {
-
+    private void tokenizeWords(String line) {
+        for(int i=0; i<line.length(); i++) {
+            System.out.print(line.charAt(i));
+        }
     }
 
     public void testFunc() {
