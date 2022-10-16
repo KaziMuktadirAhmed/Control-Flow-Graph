@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Parser {
     private final ArrayList<String> lines = new ArrayList<>();
+    private final ArrayList<String> statements = new ArrayList<>();
 
     public Parser(String filePath) throws FileNotFoundException {
         fileToString(filePath);
@@ -19,8 +20,14 @@ public class Parser {
     }
 
     public void printFile () {
+        int line_count = 1;
         for (String line : lines) {
-            System.out.println(line);
+            System.out.println(line_count + ": " + line);
+            line_count++;
         }
+    }
+
+    private void testFunc() {
+
     }
 }
