@@ -25,6 +25,7 @@ public class Parser {
             System.out.println(line_count + ": " + line);
             line_count++;
         }
+        testFunc();
     }
 
     private void testFunc() {
