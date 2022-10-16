@@ -17,24 +17,29 @@ public class Parser {
         File input_file = new File(filePath);
         Scanner scan_file = new Scanner(input_file);
         while (scan_file.hasNextLine()) lines.add(scan_file.nextLine());
-        tokenizeWords(lines.get(0));
+//        tokenizeWords(lines.get(0));
     }
 
-    private void tokenizeWords(String line) {
-        for(int i=0; i<line.length(); i++) {
-            System.out.print(line.charAt(i));
+    private ArrayList<String> tokenizeWords(String line) {
+        String[] char_arr = line.split("");
+        ArrayList<String> tokens = new ArrayList<>();
+        String temp = "";
+        for (int i=0; i<char_arr.length; i++) {
+            String c = char_arr[i];
+            if(!c.equals(" ") && i < char_arr.length-1) temp += c;
+            else if (temp.length() > 0) {
+                if(i == char_arr.length-1) temp += c;
+                tokens.add(temp);
+                temp = "";
+            }
         }
+        return tokens;
     }
 
     public void testFunc() {
-        for (String line: lines) {
-            int word_count = 1;
-            String[] words = line.split(" ");
-            for (String word: words) {
-                System.out.print(word_count + ": " + word + " ");
-                word_count++;
-            }
-            System.out.println();
+        ArrayList<String> tokens = tokenizeWords(lines.get(2));
+        for (String token: tokens) {
+            System.out.println(token);
         }
     }
 

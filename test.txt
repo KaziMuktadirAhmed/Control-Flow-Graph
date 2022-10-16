@@ -1,4 +1,4 @@
- 	#include<stdio.h>
+    #include<stdio.h>
 	int main(){
         int b = 20, a=10;
 	    if(a==b+1){
