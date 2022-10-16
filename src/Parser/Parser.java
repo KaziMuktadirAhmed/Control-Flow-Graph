@@ -19,16 +19,27 @@ public class Parser {
         while (scan_file.hasNextLine()) lines.add(scan_file.nextLine());
     }
 
+    private void tokenize(String line) {
+
+    }
+
+    public void testFunc() {
+        for (String line: lines) {
+            int word_count = 1;
+            String[] words = line.split(" ");
+            for (String word: words) {
+                System.out.print(word_count + ": " + word + " ");
+                word_count++;
+            }
+            System.out.println();
+        }
+    }
+
     public void printFile () {
         int line_count = 1;
         for (String line : lines) {
             System.out.println(line_count + ": " + line);
             line_count++;
         }
-        testFunc();
-    }
-
-    private void testFunc() {
-
     }
 }
