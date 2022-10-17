@@ -106,6 +106,7 @@ public class CFG {
                             for (Node par: ifJumpOutPoints) {
                                 setParent(par, node);
                             }
+                            ifJumpOutPoints.clear();
                         }
                         else setParent(parent, node);
                         parent = node;
