@@ -55,7 +55,8 @@ public class Parser {
         }
 
         else if (line.contains("for")) {
-
+            String[] innner_for = extractFor(line);
+            node = new FORBlock(line, innner_for[0], innner_for[1], innner_for[2]);
         }
 
         else if (line.contains("void") || line.contains("int") || line.contains("float") || line.contains("double")) {
@@ -80,6 +81,42 @@ public class Parser {
         else if (node instanceof WHILEBlock) {}
         else if (node instanceof DOPoint) {}
         else if (node instanceof FORBlock) {}
+    }
+
+    private String[] extractFor(String line) {
+        String[] inner_for = {"", "", ""};
+        String[] chars = trimLeadingSpace(line).split("");
+
+        int flag = 0;
+
+        for (String c: chars) {
+            if(c.equals("(")){
+                flag++;
+            }
+            if(flag == 1) {
+                if(c.equals(";")) {
+                    flag++;
+                    continue;
+                }
+                inner_for[0] += c;
+            }
+            else if (flag == 2) {
+                if(c.equals(";")){
+                    flag++;
+                    continue;
+                }
+                inner_for[1] += c;
+            }
+            else if (flag == 3) {
+                if(c.equals(";")) {
+                    flag++;
+                    continue;
+                }
+                inner_for[2] += c;
+            }
+        }
+
+        return inner_for;
     }
 
     private String extractCondition(String line) {
