@@ -28,10 +28,46 @@ public class CFG {
         start = nodes.get(0);
         end = nodes.get(nodes.size()-1);
 
+        ArrayList<Node> ifJumpOutPoints = new ArrayList<>();
+        Node parent = null;
 
+        boolean hadIf = false;
+        boolean hadElseIf = false;
+        boolean hadDo = false;
+        boolean hadWhile = false;
+        boolean hadFor = false;
 
         for (int i = 0; i < nodes.size(); i++) {
+            Node node = nodes.get(i);
 
+            if(parent == null){
+                parent = node;
+            } else {
+                if(!hadIf && !hadWhile && !hadFor && !hadDo && !hadElseIf){
+                    setParent(parent, node);
+                    parent = node;
+                }
+                else {
+                    if(node instanceof IFBlock) {
+                        hadIf = true;
+                    }
+                    else if (node instanceof ELSEIFBlock) {
+                        hadElseIf = true;
+                    }
+                    else if (node instanceof ELSEBlock) {
+
+                    }
+                    else if (node instanceof WHILEBlock) {
+                        hadWhile = true;
+                    }
+                    else if (node instanceof FORBlock) {
+                        hadFor = true;
+                    }
+                    else if (node instanceof DOPoint) {
+                        hadDo = true;
+                    }
+                }
+            }
         }
     }
 
