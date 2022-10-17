@@ -16,18 +16,19 @@ public class CFG {
     public CFG(String filePath) throws FileNotFoundException {
         this.parser = new Parser(filePath);
         this.lines = this.parser.getLines();
+        lineToNode();
+        start = nodes.get(0);
+        end = nodes.get(nodes.size()-1);
     }
 
-
-    public void buildTree() {
+    private void lineToNode() {
         for (String line: lines) {
             Node node = parser.buildNode(line);
             this.nodes.add(node);
         }
+    }
 
-        start = nodes.get(0);
-        end = nodes.get(nodes.size()-1);
-
+    public void buildTree() {
         ArrayList<Node> ifJumpOutPoints = new ArrayList<>();
         Node parent = null;
 
@@ -43,30 +44,34 @@ public class CFG {
             if(parent == null){
                 parent = node;
             } else {
-                if(!hadIf && !hadWhile && !hadFor && !hadDo && !hadElseIf){
-                    setParent(parent, node);
-                    parent = node;
+                if(node instanceof IFBlock) {
+                    hadIf = true;
+                }
+                else if (node instanceof ELSEIFBlock) {
+                    hadElseIf = true;
+                }
+                else if (node instanceof ELSEBlock) {
+
+                }
+                else if (node instanceof WHILEBlock) {
+                    hadWhile = true;
+                }
+                else if (node instanceof FORBlock) {
+                    hadFor = true;
+                }
+                else if (node instanceof DOPoint) {
+                    hadDo = true;
                 }
                 else {
-                    if(node instanceof IFBlock) {
-                        hadIf = true;
+                    if(!hadIf && !hadWhile && !hadFor && !hadDo && !hadElseIf){
+                        setParent(parent, node);
+                        parent = node;
                     }
-                    else if (node instanceof ELSEIFBlock) {
-                        hadElseIf = true;
-                    }
-                    else if (node instanceof ELSEBlock) {
-
-                    }
-                    else if (node instanceof WHILEBlock) {
-                        hadWhile = true;
-                    }
-                    else if (node instanceof FORBlock) {
-                        hadFor = true;
-                    }
-                    else if (node instanceof DOPoint) {
-                        hadDo = true;
+                    if(hadIf) {
+                        hadIf = false;
                     }
                 }
+
             }
         }
     }
