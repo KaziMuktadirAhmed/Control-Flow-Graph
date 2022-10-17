@@ -20,7 +20,7 @@ public class Parser {
         while (scan_file.hasNextLine()) lines.add(scan_file.nextLine());
     }
 
-    private Node buildNode(String line) {
+    public Node buildNode(String line) {
         Node node = null;
 
         if(line.contains("#")) {

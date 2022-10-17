@@ -7,16 +7,21 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class CFG {
-    private String filePath;
-    private ArrayList<String> lines;
-    private Parser parser;
+    private final ArrayList<String> lines;
+    private final Parser parser;
     private ArrayList<Node> nodes = new ArrayList<>();
 
     public CFG(String filePath) throws FileNotFoundException {
-        this.filePath = filePath;
         this.parser = new Parser(filePath);
         this.lines = this.parser.getLines();
     }
 
-    public void buildTree() {}
+    public void buildTree() {
+        for (String line: lines) {
+            Node node = parser.buildNode(line);
+            this.nodes.add(node);
+
+
+        }
+    }
 }
