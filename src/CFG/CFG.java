@@ -31,9 +31,9 @@ public class CFG {
         ArrayList<Node> ifJumpOutPoints = new ArrayList<>();
         Node parent = null;
         Node parentIf = null;
-        Node parentFor = null;
-        Node parentWhile = null;
-        Node parentDo  = null;
+        FORBlock parentFor = null;
+        WHILEBlock parentWhile = null;
+        DOPoint parentDo  = null;
 
         boolean hadIf = false;
         boolean hadElseIf = false;
@@ -57,7 +57,8 @@ public class CFG {
                     if(parentIf instanceof IFBlock) {
                         ((IFBlock) parentIf).setJumpTOElseIf((ELSEIFBlock) node);
                         ((IFBlock) parentIf).hasElseIf = true;
-                    } else if (parentIf instanceof ELSEIFBlock) {
+                    }
+                    else if (parentIf instanceof ELSEIFBlock) {
                         ((ELSEIFBlock) parentIf).setJumpTOElseIf((ELSEIFBlock) node);
                         ((ELSEIFBlock) parentIf).hasElseIf = true;
                     }
@@ -65,18 +66,30 @@ public class CFG {
                 }
                 else if (node instanceof ELSEBlock) {
                     hadElse = true;
+                    if(parentIf instanceof IFBlock) {
+                        ((IFBlock) parentIf).setJumpTOElseIf((ELSEIFBlock) node);
+                        ((IFBlock) parentIf).hasElseIf = true;
+                    }
+                    else if (parentIf instanceof ELSEIFBlock) {
+                        ((ELSEIFBlock) parentIf).setJumpTOElseIf((ELSEIFBlock) node);
+                        ((ELSEIFBlock) parentIf).hasElseIf = true;
+                    }
+                    parent = node;
                 }
                 else if (node instanceof WHILEBlock) {
                     hadWhile = true;
                     setParent(parent, node);
+                    parentWhile = (WHILEBlock) node;
                 }
                 else if (node instanceof FORBlock) {
                     hadFor = true;
                     setParent(parent, node);
+                    parentFor = (FORBlock) node;
                 }
                 else if (node instanceof DOPoint) {
                     hadDo = true;
                     setParent(parent, node);
+                    parentDo = (DOPoint) node;
                 }
                 else {
                     if (!hadIf && !hadWhile && !hadFor && !hadDo && !hadElseIf && !hadElse) {
