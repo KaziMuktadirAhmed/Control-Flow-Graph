@@ -125,7 +125,9 @@ public class Parser {
         boolean flag = false;
 
         for(String c: chars){
-            if(!flag && c.equals("(")) continue;
+            if(!flag) {
+                if(c.equals("(")) flag = true;
+            }
             else {
                 if (c.equals(")"))
                     flag = false;
@@ -161,6 +163,9 @@ public class Parser {
         for (String line:lines) {
             Node node = buildNode(line);
             System.out.println(node.line());
+
+            if(node instanceof WHILEBlock)
+                System.out.println("condition-" + ((WHILEBlock) node).condition);
         }
 
     }
