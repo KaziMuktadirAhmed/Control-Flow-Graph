@@ -1,4 +1,4 @@
-package CFG;
+package CFG.Node;
 
 public class declaration extends Node{
     public declaration(String line) {

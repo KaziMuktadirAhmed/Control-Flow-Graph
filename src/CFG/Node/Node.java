@@ -1,4 +1,4 @@
-package CFG;
+package CFG.Node;
 
 import java.util.ArrayList;
 
