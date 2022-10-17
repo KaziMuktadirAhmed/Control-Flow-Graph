@@ -19,7 +19,7 @@ public class WHILEBlock extends Node{
         this.jumpTO = DoBlock;
     }
 
-    public void setJumpTOStatement(statement statement){
+    public void setJumpTOStatement(Node statement){
         this.isDoWhile = false;
         this.jumpTO = statement;
     }

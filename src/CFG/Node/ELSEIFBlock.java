@@ -15,7 +15,7 @@ public class ELSEIFBlock extends Node{
         return this.jumpTO;
     }
 
-    public void setJumpTOStatement(statement statement) {
+    public void setJumpTOStatement(Node statement) {
         this.jumpTO = statement;
     }
 
