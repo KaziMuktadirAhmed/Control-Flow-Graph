@@ -33,44 +33,58 @@ public class CFG {
 
         boolean hadIf = false;
         boolean hadElseIf = false;
+        boolean hadElse = false;
         boolean hadDo = false;
         boolean hadWhile = false;
         boolean hadFor = false;
 
-        for (int i = 0; i < nodes.size(); i++) {
-            Node node = nodes.get(i);
-
-            if(parent == null){
+        for (Node node : nodes) {
+            if (parent == null) {
                 parent = node;
-            } else {
-                if(node instanceof IFBlock) {
+            }
+            else {
+                if (node instanceof IFBlock) {
                     hadIf = true;
-                }
-                else if (node instanceof ELSEIFBlock) {
+                    setParent(parent, node);
+                } else if (node instanceof ELSEIFBlock) {
                     hadElseIf = true;
-                }
-                else if (node instanceof ELSEBlock) {
-
-                }
-                else if (node instanceof WHILEBlock) {
+//                    setParent(parent, node);
+                } else if (node instanceof ELSEBlock) {
+                    hadElse = true;
+                } else if (node instanceof WHILEBlock) {
                     hadWhile = true;
-                }
-                else if (node instanceof FORBlock) {
+                    setParent(parent, node);
+                } else if (node instanceof FORBlock) {
                     hadFor = true;
-                }
-                else if (node instanceof DOPoint) {
+                    setParent(parent, node);
+                } else if (node instanceof DOPoint) {
                     hadDo = true;
+                    setParent(parent, node);
                 }
                 else {
-                    if(!hadIf && !hadWhile && !hadFor && !hadDo && !hadElseIf){
+                    if (!hadIf && !hadWhile && !hadFor && !hadDo && !hadElseIf && !hadElse) {
                         setParent(parent, node);
                         parent = node;
                     }
-                    if(hadIf) {
+                    else if (hadIf) {
                         hadIf = false;
                     }
+                    else if (hadElseIf) {
+                        hadElseIf = false;
+                    }
+                    else if(hadElse) {
+                        hadElse = false;
+                    }
+                    else if (hadDo) {
+                        hadDo = false;
+                    }
+                    else if (hadWhile) {
+                        hadWhile = false;
+                    }
+                    else if(hadFor) {
+                        hadFor = false;
+                    }
                 }
-
             }
         }
     }
