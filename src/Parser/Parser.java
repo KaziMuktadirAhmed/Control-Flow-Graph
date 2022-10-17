@@ -32,7 +32,6 @@ public class Parser {
         else if (line.contains("else if")) {
             String cond = extractCondition(line);
             node = new ELSEIFBlock(line, cond);
-            refineELSEIF(node);
         }
 
         else if (line.contains("if")) {
@@ -49,7 +48,8 @@ public class Parser {
         }
 
         else if (line.contains("while")) {
-
+            String condition = extractCondition(line);
+            node = new WHILEBlock(line, condition);
         }
 
         else if (line.contains("for")) {
@@ -63,19 +63,41 @@ public class Parser {
         else {
 
         }
+        refineNode(node);
 
         return node;
     }
 
-    private void refineELSEIF(Node node) {
+    private void refineNode(Node node) {
     }
 
     private String extractCondition(String line) {
         String[] chars = line.split("");
         String condition = "";
+        String trimmedLeadingSpace = "";
         boolean flag = true;
-        for (String c: chars) {
 
+        for (String c: chars) {
+            if(c.equals(" ") && flag) continue;
+            else {
+                trimmedLeadingSpace += c;
+                flag = false;
+            }
+        }
+
+        chars = trimmedLeadingSpace.split("");
+        flag = false;
+
+        for(String c: chars){
+            if(!flag && c.equals("(")) continue;
+            else {
+                if (c.equals(")"))
+                    flag = false;
+                else {
+                    condition += c;
+                    flag = true;
+                }
+            }
         }
 
         return condition;
