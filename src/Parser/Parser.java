@@ -71,23 +71,28 @@ public class Parser {
     }
 
     private String extractCondition(String line) {
+        String[] chars = line.split("");
         String condition = "";
+        boolean flag = true;
+        for (String c: chars) {
+
+        }
 
         return condition;
     }
 
     private static String extractPreprocessLine(String line) {
         String[] chars = line.split("");
-        String temp = "";
+        String linePreprocess = "";
         boolean flag = true;
         for (String c:chars) {
             if(c.equals(" ") && flag) continue;
             else {
-                temp += c;
+                linePreprocess += c;
                 flag = false;
             }
         }
-        return temp;
+        return linePreprocess;
     }
 
 //    private Node buildNode (String line) {
