@@ -45,7 +45,6 @@ public class CFG {
         for (Node node : nodes) {
             if (parent == null) {
                 parent = node;
-                System.out.println(parent);
             }
             else {
                 if (node instanceof IFBlock) {
@@ -103,7 +102,12 @@ public class CFG {
                 }
                 else {
                     if (!hadIf && !hadWhile && !hadFor && !hadDo && !hadElseIf && !hadElse) {
-                        setParent(parent, node);
+                        if(ifJumpOutPoints.size() > 0) {
+                            for (Node par: ifJumpOutPoints) {
+                                setParent(par, node);
+                            }
+                        }
+                        else setParent(parent, node);
                         parent = node;
                     }
                     else if (hadIf) {
@@ -117,11 +121,25 @@ public class CFG {
                             parent = node;
                         }
                     }
-                    else if (hadElseIf) {
-                        hadElseIf = false;
+                    else if (hadElseIf) {setParent(parent, node);
+//                        parent = node;
+                        if(node.line.contains("}")) {
+                            hadElseIf = false;
+                            ifJumpOutPoints.add(node);
+                        }
+                        else {
+                            parent = node;
+                        }
                     }
-                    else if(hadElse) {
-                        hadElse = false;
+                    else if(hadElse) {setParent(parent, node);
+//                        parent = node;
+                        if(node.line.contains("}")) {
+                            hadElse = false;
+                            ifJumpOutPoints.add(node);
+                        }
+                        else {
+                            parent = node;
+                        }
                     }
                     else if (hadDo) {
                         hadDo = false;
@@ -156,5 +174,14 @@ public class CFG {
         }
     }
 
-    private void setChild() {}
+    public void printChild() {
+        for (Node node: nodes) {
+            if(node instanceof preprocess) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
+            else if(node instanceof declaration) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
+            else if(node instanceof statement) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
+            else if(node instanceof IFBlock) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
+            else if(node instanceof ELSEIFBlock) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
+            else if(node instanceof ELSEBlock) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
+        }
+    }
 }

@@ -14,5 +14,6 @@ public class Main {
         CFG cfg = new CFG("test.txt");
         cfg.buildTree();
         cfg.printLinesWithTag();
+        cfg.printChild();
     }
 }
