@@ -1,6 +1,5 @@
 package CFG;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 
 public class Node {
