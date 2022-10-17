@@ -23,7 +23,9 @@ public class CFG {
             Node node = parser.buildNode(line);
             this.nodes.add(node);
         }
+    }
 
+    public void printLinesWithTag() {
         for (Node node: nodes) {
             if(node instanceof preprocess) start = node;
             System.out.print(node.line());
