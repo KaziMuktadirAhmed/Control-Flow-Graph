@@ -1,5 +1,8 @@
 package Parser;
 
+import CFG.Node.Node;
+import CFG.Node.preprocess;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -19,29 +22,28 @@ public class Parser {
         while (scan_file.hasNextLine()) lines.add(scan_file.nextLine());
     }
 
-    private ArrayList<String> tokenizeWords(String line) {
-        String[] char_arr = line.split("");
-        ArrayList<String> tokens = new ArrayList<>();
+    private Node tokenizeWords(String line) {
+        Node node = null;
 
+        if(line.contains("#")) {
+            extractPreprocessLine(line);
+            node = new preprocess(line);
+        }
+
+        return node;
+    }
+
+    private static void extractPreprocessLine(String line) {
+        String[] chars = line.split("");
         String temp = "";
-        boolean trigger = true;
-        int state = -1;
-
-        for (int i=0; i<char_arr.length; i++) {
-            String c = char_arr[i];
-            if(!c.equals(" ") && i < char_arr.length-1 && trigger) {
-                if(c.equals("#")) {}
+        boolean flag = true;
+        for (String c:chars) {
+            if(c.equals(" ") && flag) continue;
+            else {
                 temp += c;
-            }
-            else if (temp.length() > 0) {
-                if(i == char_arr.length-1) temp += c;
-
-
-                tokens.add(temp);
-                temp = "";
+                flag = false;
             }
         }
-        return tokens;
     }
 
 //    private Node buildNode (String line) {
@@ -49,12 +51,12 @@ public class Parser {
 //        return node;
 //    }
 
-    public void testFunc() {
-        ArrayList<String> tokens = tokenizeWords(lines.get(0));
-        for (String token: tokens) {
-            System.out.println(token);
-        }
-    }
+//    public void testFunc() {
+//        ArrayList<String> tokens = tokenizeWords(lines.get(0));
+//        for (String token: tokens) {
+//            System.out.println(token);
+//        }
+//    }
 
     public void printFile () {
         int line_count = 1;

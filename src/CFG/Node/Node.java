@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Node {
     private String name;
-    private String line;
+    private final String line;
     public ArrayList<Node> childs;
 
     public Node(String line) {  this.line = line;   }
