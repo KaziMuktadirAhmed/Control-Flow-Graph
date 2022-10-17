@@ -54,8 +54,8 @@ public class Parser {
         }
 
         else if (line.contains("for")) {
-            String[] innner_for = extractFor(line);
-            node = new FORBlock(trimLeadingSpace(line), innner_for[0], innner_for[1], innner_for[2]);
+            String[] inner_for = extractFor(line);
+            node = new FORBlock(trimLeadingSpace(line), inner_for[0], inner_for[1], inner_for[2]);
         }
 
         else if (line.contains("void ") || line.contains("int ") || line.contains("float ") || line.contains("double ")) {
