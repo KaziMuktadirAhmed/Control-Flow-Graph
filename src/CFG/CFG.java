@@ -51,9 +51,11 @@ public class CFG {
                     hadIf = true;
                     setParent(parent, node);
                     parentIf = node;
+                    parent = node;
                 }
                 else if (node instanceof ELSEIFBlock) {
                     hadElseIf = true;
+
                     if(parentIf instanceof IFBlock) {
                         ((IFBlock) parentIf).setJumpTOElseIf((ELSEIFBlock) node);
                         ((IFBlock) parentIf).hasElseIf = true;
@@ -62,10 +64,13 @@ public class CFG {
                         ((ELSEIFBlock) parentIf).setJumpTOElseIf((ELSEIFBlock) node);
                         ((ELSEIFBlock) parentIf).hasElseIf = true;
                     }
+
                     parentIf = node;
+                    parent = node;
                 }
                 else if (node instanceof ELSEBlock) {
                     hadElse = true;
+
                     if(parentIf instanceof IFBlock) {
                         ((IFBlock) parentIf).setJumpTOElse((ELSEBlock) node);
                         ((IFBlock) parentIf).hasElse = true;
@@ -74,22 +79,26 @@ public class CFG {
                         ((ELSEIFBlock) parentIf).setJumpTOElse((ELSEBlock) node);
                         ((ELSEIFBlock) parentIf).hasElse = true;
                     }
+
                     parent = node;
                 }
                 else if (node instanceof WHILEBlock) {
                     hadWhile = true;
                     setParent(parent, node);
                     parentWhile = (WHILEBlock) node;
+                    parent = node;
                 }
                 else if (node instanceof FORBlock) {
                     hadFor = true;
                     setParent(parent, node);
                     parentFor = (FORBlock) node;
+                    parent = node;
                 }
                 else if (node instanceof DOPoint) {
                     hadDo = true;
                     setParent(parent, node);
                     parentDo = (DOPoint) node;
+                    parent = node;
                 }
                 else {
                     if (!hadIf && !hadWhile && !hadFor && !hadDo && !hadElseIf && !hadElse) {
@@ -97,7 +106,14 @@ public class CFG {
                         parent = node;
                     }
                     else if (hadIf) {
-                        hadIf = false;
+                        setParent(parent, node);
+//                        parent = node;
+                        if(node.line.contains("}")) {
+                            hadIf = false;
+                        }
+                        else {
+                            parent = node;
+                        }
                     }
                     else if (hadElseIf) {
                         hadElseIf = false;
