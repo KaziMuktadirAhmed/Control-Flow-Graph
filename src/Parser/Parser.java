@@ -21,11 +21,11 @@ public class Parser {
         while (scan_file.hasNextLine()) lines.add(scan_file.nextLine());
     }
 
-    private Node tokenizeWords(String line) {
+    private Node buildNode(String line) {
         Node node = null;
 
         if(line.contains("#")) {
-            String l =extractPreprocessLine(line);
+            String l = trimLeadingSpace(line);
             node = new preprocess(l);
         }
 
@@ -40,11 +40,13 @@ public class Parser {
         }
 
         else if (line.contains("else")) {
-            node = new ELSEBlock(line);
+            String l = trimLeadingSpace(line);
+            node = new ELSEBlock(l);
         }
 
         else if (line.contains("do")) {
-
+            String l = trimLeadingSpace(line);
+            node = new DOPoint(l);
         }
 
         else if (line.contains("while")) {
@@ -57,36 +59,34 @@ public class Parser {
         }
 
         else if (line.contains("void") || line.contains("int") || line.contains("float") || line.contains("double")) {
-
+            String l = trimLeadingSpace(line);
+            node = new declaration(l);
         }
 
         else {
-
+            String l = trimLeadingSpace(line);
+            node = new statement(l);
         }
+
         refineNode(node);
 
         return node;
     }
 
     private void refineNode(Node node) {
+        if (node instanceof IFBlock) {}
+        else if (node instanceof ELSEIFBlock) {}
+        else if (node instanceof ELSEBlock) {}
+        else if (node instanceof WHILEBlock) {}
+        else if (node instanceof DOPoint) {}
+        else if (node instanceof FORBlock) {}
     }
 
     private String extractCondition(String line) {
-        String[] chars = line.split("");
+        String trimmedLine = trimLeadingSpace(line);
+        String[] chars = trimmedLine.split("");
         String condition = "";
-        String trimmedLeadingSpace = "";
-        boolean flag = true;
-
-        for (String c: chars) {
-            if(c.equals(" ") && flag) continue;
-            else {
-                trimmedLeadingSpace += c;
-                flag = false;
-            }
-        }
-
-        chars = trimmedLeadingSpace.split("");
-        flag = false;
+        boolean flag = false;
 
         for(String c: chars){
             if(!flag && c.equals("(")) continue;
@@ -103,18 +103,18 @@ public class Parser {
         return condition;
     }
 
-    private static String extractPreprocessLine(String line) {
+    private static String trimLeadingSpace(String line) {
         String[] chars = line.split("");
-        String linePreprocess = "";
+        String l = "";
         boolean flag = true;
         for (String c:chars) {
             if(c.equals(" ") && flag) continue;
             else {
-                linePreprocess += c;
+                l += c;
                 flag = false;
             }
         }
-        return linePreprocess;
+        return l;
     }
 
     public ArrayList<String> getLines() {
@@ -127,7 +127,7 @@ public class Parser {
 //    }
 
 //    public void testFunc() {
-//        ArrayList<String> tokens = tokenizeWords(lines.get(0));
+//        ArrayList<String> tokens = buildNode(lines.get(0));
 //        for (String token: tokens) {
 //            System.out.println(token);
 //        }
