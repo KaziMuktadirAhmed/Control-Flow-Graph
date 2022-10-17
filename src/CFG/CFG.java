@@ -45,6 +45,7 @@ public class CFG {
         for (Node node : nodes) {
             if (parent == null) {
                 parent = node;
+                System.out.println(parent);
             }
             else {
                 if (node instanceof IFBlock) {
@@ -110,6 +111,7 @@ public class CFG {
 //                        parent = node;
                         if(node.line.contains("}")) {
                             hadIf = false;
+                            ifJumpOutPoints.add(node);
                         }
                         else {
                             parent = node;
