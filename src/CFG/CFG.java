@@ -30,6 +30,7 @@ public class CFG {
     public void buildTree() {
         ArrayList<Node> ifJumpOutPoints = new ArrayList<>();
         Node parent = null;
+        Node parentIf = null;
 
         boolean hadIf = false;
         boolean hadElseIf = false;
@@ -46,9 +47,13 @@ public class CFG {
                 if (node instanceof IFBlock) {
                     hadIf = true;
                     setParent(parent, node);
-                } else if (node instanceof ELSEIFBlock) {
+                    parentIf = node;
+                }
+                else if (node instanceof ELSEIFBlock) {
                     hadElseIf = true;
-//                    setParent(parent, node);
+                    if(parentIf instanceof IFBlock) {
+                        
+                    }
                 } else if (node instanceof ELSEBlock) {
                     hadElse = true;
                 } else if (node instanceof WHILEBlock) {
