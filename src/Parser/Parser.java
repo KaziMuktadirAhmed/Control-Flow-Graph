@@ -157,17 +157,14 @@ public class Parser {
         return lines;
     }
 
-//    private Node buildNode (String line) {
-//        Node node = new Node(line);
-//        return node;
-//    }
+    public void testFunc() {
+        for (String line:lines) {
+            Node node = buildNode(line);
+            System.out.println(node instanceof statement);
+            System.out.println(node.line());
+        }
 
-//    public void testFunc() {
-//        ArrayList<String> tokens = buildNode(lines.get(0));
-//        for (String token: tokens) {
-//            System.out.println(token);
-//        }
-//    }
+    }
 
     public void printFile () {
         int line_count = 1;
