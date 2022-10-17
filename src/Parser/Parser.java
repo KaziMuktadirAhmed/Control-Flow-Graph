@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class Parser {
     private final ArrayList<String> lines = new ArrayList<>();
-    private final ArrayList<String> statements = new ArrayList<>();
 
     public Parser(String filePath) throws FileNotFoundException {
         fileToString(filePath);
