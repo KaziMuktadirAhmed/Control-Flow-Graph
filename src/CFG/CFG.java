@@ -9,9 +9,8 @@ import java.util.ArrayList;
 public class CFG {
     private final ArrayList<String> lines;
     private final Parser parser;
-
     private Node start, end;
-    private ArrayList<Node> nodes = new ArrayList<>();
+    private final ArrayList<Node> nodes = new ArrayList<>();
 
     public CFG(String filePath) throws FileNotFoundException {
         this.parser = new Parser(filePath);
