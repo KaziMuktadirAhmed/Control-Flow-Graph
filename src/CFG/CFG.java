@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public class CFG {
     private final ArrayList<String> lines;
     private final Parser parser;
+
+    private Node start;
     private ArrayList<Node> nodes = new ArrayList<>();
 
     public CFG(String filePath) throws FileNotFoundException {
@@ -23,7 +25,10 @@ public class CFG {
         }
 
         for (Node node: nodes) {
+            if(node instanceof preprocess) start = node;
             System.out.println(node.line());
         }
     }
+
+    private void setChild() {}
 }
