@@ -68,18 +68,7 @@ public class Parser {
             node = new statement(l);
         }
 
-        refineNode(node);
-
         return node;
-    }
-
-    private void refineNode(Node node) {
-        if (node instanceof IFBlock) {}
-        else if (node instanceof ELSEIFBlock) {}
-        else if (node instanceof ELSEBlock) {}
-        else if (node instanceof WHILEBlock) {}
-        else if (node instanceof DOPoint) {}
-        else if (node instanceof FORBlock) {}
     }
 
     private String[] extractFor(String line) {
@@ -133,7 +122,6 @@ public class Parser {
                     flag = false;
                 else {
                     condition += c;
-                    flag = true;
                 }
             }
         }
@@ -167,7 +155,6 @@ public class Parser {
             if(node instanceof WHILEBlock)
                 System.out.println("condition-" + ((WHILEBlock) node).condition);
         }
-
     }
 
     public void printFile () {
