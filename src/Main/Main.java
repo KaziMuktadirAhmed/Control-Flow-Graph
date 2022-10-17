@@ -12,9 +12,6 @@ public class Main {
     }
 
     public static void test() throws FileNotFoundException {
-//        Parser parse_file = new Parser("test.txt");
-//        parse_file.testFunc();
-//        parse_file.printFile();
         CFG cfg = new CFG("test.txt");
         cfg.buildTree();
     }
