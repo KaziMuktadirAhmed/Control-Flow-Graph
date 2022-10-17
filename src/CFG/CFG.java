@@ -23,7 +23,7 @@ public class CFG {
         }
 
         for (Node node: nodes) {
-
+            System.out.println(node.line());
         }
     }
 }
