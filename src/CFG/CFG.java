@@ -10,7 +10,7 @@ public class CFG {
     private final ArrayList<String> lines;
     private final Parser parser;
 
-    private Node start;
+    private Node start, end;
     private ArrayList<Node> nodes = new ArrayList<>();
 
     public CFG(String filePath) throws FileNotFoundException {
@@ -23,6 +23,15 @@ public class CFG {
             Node node = parser.buildNode(line);
             this.nodes.add(node);
         }
+
+        start = nodes.get(0);
+        end = nodes.get(nodes.size()-1);
+
+
+    }
+
+    private void setParent(Node parent, Node child) {
+        parent.childs.add(child);
     }
 
     public void printLinesWithTag() {
