@@ -18,6 +18,7 @@ public class CFG {
         this.lines = this.parser.getLines();
     }
 
+
     public void buildTree() {
         for (String line: lines) {
             Node node = parser.buildNode(line);
@@ -28,6 +29,10 @@ public class CFG {
         end = nodes.get(nodes.size()-1);
 
 
+
+        for (int i = 0; i < nodes.size(); i++) {
+
+        }
     }
 
     private void setParent(Node parent, Node child) {
