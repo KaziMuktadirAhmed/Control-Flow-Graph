@@ -58,7 +58,7 @@ public class Parser {
             node = new FORBlock(trimLeadingSpace(line), innner_for[0], innner_for[1], innner_for[2]);
         }
 
-        else if (line.contains("void") || line.contains("int") || line.contains("float") || line.contains("double")) {
+        else if (line.contains("void ") || line.contains("int ") || line.contains("float ") || line.contains("double ")) {
             String l = trimLeadingSpace(line);
             node = new declaration(l);
         }
