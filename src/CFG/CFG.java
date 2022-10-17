@@ -122,7 +122,8 @@ public class CFG {
                             parent = node;
                         }
                     }
-                    else if (hadElseIf) {setParent(parent, node);
+                    else if (hadElseIf) {
+                        setParent(parent, node);
 //                        parent = node;
                         if(node.line.contains("}")) {
                             hadElseIf = false;
@@ -132,7 +133,8 @@ public class CFG {
                             parent = node;
                         }
                     }
-                    else if(hadElse) {setParent(parent, node);
+                    else if(hadElse) {
+                        setParent(parent, node);
 //                        parent = node;
                         if(node.line.contains("}")) {
                             hadElse = false;
@@ -149,7 +151,14 @@ public class CFG {
                         hadWhile = false;
                     }
                     else if(hadFor) {
-                        hadFor = false;
+                        setParent(parent, node);
+                        if(node.line.contains("}")) {
+                            hadFor = false;
+                            parentFor.setJumpTO(node);
+                        }
+                        else {
+                            parent = node;
+                        }
                     }
                 }
             }
@@ -183,6 +192,9 @@ public class CFG {
             else if(node instanceof IFBlock) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
             else if(node instanceof ELSEIFBlock) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
             else if(node instanceof ELSEBlock) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
+            else if(node instanceof FORBlock) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
+            else if(node instanceof WHILEBlock) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
+            else if(node instanceof DOPoint) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
         }
     }
 }
