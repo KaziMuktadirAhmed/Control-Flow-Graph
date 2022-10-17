@@ -30,12 +30,12 @@ public class Parser {
 
         else if (line.contains("else if")) {
             String cond = extractCondition(line);
-            node = new ELSEIFBlock(line, cond);
+            node = new ELSEIFBlock(trimLeadingSpace(line), cond);
         }
 
         else if (line.contains("if")) {
             String cond = extractCondition(line);
-            node = new IFBlock(line, cond);
+            node = new IFBlock(trimLeadingSpace(line), cond);
         }
 
         else if (line.contains("else")) {
@@ -50,12 +50,12 @@ public class Parser {
 
         else if (line.contains("while")) {
             String condition = extractCondition(line);
-            node = new WHILEBlock(line, condition);
+            node = new WHILEBlock(trimLeadingSpace(line), condition);
         }
 
         else if (line.contains("for")) {
             String[] innner_for = extractFor(line);
-            node = new FORBlock(line, innner_for[0], innner_for[1], innner_for[2]);
+            node = new FORBlock(trimLeadingSpace(line), innner_for[0], innner_for[1], innner_for[2]);
         }
 
         else if (line.contains("void") || line.contains("int") || line.contains("float") || line.contains("double")) {
@@ -144,7 +144,7 @@ public class Parser {
         String l = "";
         boolean flag = true;
         for (String c:chars) {
-            if(c.equals(" ") && flag) continue;
+            if((c.equals(" ") || c.equals("\t")) && flag) continue;
             else {
                 l += c;
                 flag = false;
@@ -160,7 +160,6 @@ public class Parser {
     public void testFunc() {
         for (String line:lines) {
             Node node = buildNode(line);
-            System.out.println(node instanceof statement);
             System.out.println(node.line());
         }
 
