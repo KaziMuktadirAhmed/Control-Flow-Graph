@@ -27,7 +27,6 @@ public class CFG {
 
     public void printLinesWithTag() {
         for (Node node: nodes) {
-            if(node instanceof preprocess) start = node;
             System.out.print(node.line());
             if(node instanceof IFBlock)             System.out.println("\tif");
             else if (node instanceof ELSEIFBlock)   System.out.println("\telse  if");
