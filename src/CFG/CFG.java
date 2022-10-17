@@ -67,12 +67,12 @@ public class CFG {
                 else if (node instanceof ELSEBlock) {
                     hadElse = true;
                     if(parentIf instanceof IFBlock) {
-                        ((IFBlock) parentIf).setJumpTOElseIf((ELSEIFBlock) node);
-                        ((IFBlock) parentIf).hasElseIf = true;
+                        ((IFBlock) parentIf).setJumpTOElse((ELSEBlock) node);
+                        ((IFBlock) parentIf).hasElse = true;
                     }
                     else if (parentIf instanceof ELSEIFBlock) {
-                        ((ELSEIFBlock) parentIf).setJumpTOElseIf((ELSEIFBlock) node);
-                        ((ELSEIFBlock) parentIf).hasElseIf = true;
+                        ((ELSEIFBlock) parentIf).setJumpTOElse((ELSEBlock) node);
+                        ((ELSEIFBlock) parentIf).hasElse = true;
                     }
                     parent = node;
                 }
