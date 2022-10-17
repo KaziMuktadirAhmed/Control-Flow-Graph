@@ -31,6 +31,9 @@ public class CFG {
         ArrayList<Node> ifJumpOutPoints = new ArrayList<>();
         Node parent = null;
         Node parentIf = null;
+        Node parentFor = null;
+        Node parentWhile = null;
+        Node parentDo  = null;
 
         boolean hadIf = false;
         boolean hadElseIf = false;
@@ -52,17 +55,26 @@ public class CFG {
                 else if (node instanceof ELSEIFBlock) {
                     hadElseIf = true;
                     if(parentIf instanceof IFBlock) {
-                        
+                        ((IFBlock) parentIf).setJumpTOElseIf((ELSEIFBlock) node);
+                        ((IFBlock) parentIf).hasElseIf = true;
+                    } else if (parentIf instanceof ELSEIFBlock) {
+                        ((ELSEIFBlock) parentIf).setJumpTOElseIf((ELSEIFBlock) node);
+                        ((ELSEIFBlock) parentIf).hasElseIf = true;
                     }
-                } else if (node instanceof ELSEBlock) {
+                    parentIf = node;
+                }
+                else if (node instanceof ELSEBlock) {
                     hadElse = true;
-                } else if (node instanceof WHILEBlock) {
+                }
+                else if (node instanceof WHILEBlock) {
                     hadWhile = true;
                     setParent(parent, node);
-                } else if (node instanceof FORBlock) {
+                }
+                else if (node instanceof FORBlock) {
                     hadFor = true;
                     setParent(parent, node);
-                } else if (node instanceof DOPoint) {
+                }
+                else if (node instanceof DOPoint) {
                     hadDo = true;
                     setParent(parent, node);
                 }
