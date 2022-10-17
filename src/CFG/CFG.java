@@ -31,13 +31,13 @@ public class CFG {
             System.out.print(node.line());
             if(node instanceof IFBlock)             System.out.println("\tif");
             else if (node instanceof ELSEIFBlock)   System.out.println("\telse  if");
-            else if (node instanceof ELSEBlock)   System.out.println("\telse");
-            else if (node instanceof DOPoint)   System.out.println("\tdo");
-            else if (node instanceof WHILEBlock)   System.out.println("\twhile");
-            else if (node instanceof FORBlock)   System.out.println("\tfor");
-            else if (node instanceof preprocess)   System.out.println("\tpreprocess");
+            else if (node instanceof ELSEBlock)     System.out.println("\telse");
+            else if (node instanceof DOPoint)       System.out.println("\tdo");
+            else if (node instanceof WHILEBlock)    System.out.println("\twhile");
+            else if (node instanceof FORBlock)      System.out.println("\tfor");
+            else if (node instanceof preprocess)    System.out.println("\tpreprocess");
             else if (node instanceof declaration)   System.out.println("\tdeclaration");
-            else if (node instanceof statement)   System.out.println("\tstatement");
+            else if (node instanceof statement)     System.out.println("\tstatement");
         }
     }
 
