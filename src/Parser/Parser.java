@@ -117,6 +117,10 @@ public class Parser {
         return linePreprocess;
     }
 
+    public ArrayList<String> getLines() {
+        return lines;
+    }
+
 //    private Node buildNode (String line) {
 //        Node node = new Node(line);
 //        return node;

@@ -15,6 +15,7 @@ public class CFG {
     public CFG(String filePath) throws FileNotFoundException {
         this.filePath = filePath;
         this.parser = new Parser(filePath);
+        this.lines = this.parser.getLines();
     }
 
     public void buildTree() {}
