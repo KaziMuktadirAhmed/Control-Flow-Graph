@@ -1,7 +1,6 @@
 package Parser;
 
-import CFG.Node.Node;
-import CFG.Node.preprocess;
+import CFG.Node.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,14 +25,58 @@ public class Parser {
         Node node = null;
 
         if(line.contains("#")) {
-            extractPreprocessLine(line);
-            node = new preprocess(line);
+            String l =extractPreprocessLine(line);
+            node = new preprocess(l);
+        }
+
+        else if (line.contains("else if")) {
+            String cond = extractCondition(line);
+            node = new ELSEIFBlock(line, cond);
+            refineELSEIF(node);
+        }
+
+        else if (line.contains("if")) {
+            String cond = extractCondition(line);
+            node = new IFBlock(line, cond);
+        }
+
+        else if (line.contains("else")) {
+            node = new ELSEBlock(line);
+        }
+
+        else if (line.contains("do")) {
+
+        }
+
+        else if (line.contains("while")) {
+
+        }
+
+        else if (line.contains("for")) {
+
+        }
+
+        else if (line.contains("void") || line.contains("int") || line.contains("float") || line.contains("double")) {
+
+        }
+
+        else {
+
         }
 
         return node;
     }
 
-    private static void extractPreprocessLine(String line) {
+    private void refineELSEIF(Node node) {
+    }
+
+    private String extractCondition(String line) {
+        String condition = "";
+
+        return condition;
+    }
+
+    private static String extractPreprocessLine(String line) {
         String[] chars = line.split("");
         String temp = "";
         boolean flag = true;
@@ -44,6 +87,7 @@ public class Parser {
                 flag = false;
             }
         }
+        return temp;
     }
 
 //    private Node buildNode (String line) {
