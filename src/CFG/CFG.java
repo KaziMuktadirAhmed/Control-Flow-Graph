@@ -20,7 +20,9 @@ public class CFG {
         for (String line: lines) {
             Node node = parser.buildNode(line);
             this.nodes.add(node);
+        }
 
+        for (Node node: nodes) {
 
         }
     }

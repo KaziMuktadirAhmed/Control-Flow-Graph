@@ -3,7 +3,7 @@ package CFG.Node;
 public class WHILEBlock extends Node{
     public String condition;
     private boolean isDoWhile = false;
-    private Node pointToDo = null;
+    private Node jumpTO = null;
 
     public WHILEBlock(String line, String condition) {
         super(line);
@@ -14,12 +14,17 @@ public class WHILEBlock extends Node{
         return this.isDoWhile;
     }
 
-    public void setPointToDo(Node DoBlock) {
+    public void setJumpToDo(DOPoint DoBlock) {
         this.isDoWhile = true;
-        this.pointToDo = DoBlock;
+        this.jumpTO = DoBlock;
     }
 
-    public Node gotoDoBlock() {
-        return this.pointToDo;
+    public void setJumpTOStatement(statement statement){
+        this.isDoWhile = false;
+        this.jumpTO = statement;
+    }
+
+    public Node jumpTO() {
+        return this.jumpTO;
     }
 }
