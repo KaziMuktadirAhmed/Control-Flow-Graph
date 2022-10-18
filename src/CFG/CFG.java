@@ -204,4 +204,19 @@ public class CFG {
             System.out.println();
         }
     }
+
+    private int countEdge() {
+        int edgeCount = 0;
+        for (Node node: nodes) {
+            edgeCount += node.childs.size();
+        }
+        return edgeCount;
+    }
+
+    public int cyclomatricComplexity() {
+        int complexity = 0;
+        int edge_count = countEdge(), nodes = this.nodes.size();
+        complexity = edge_count - nodes + 2;
+        return complexity;
+    }
 }

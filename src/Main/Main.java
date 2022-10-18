@@ -15,5 +15,6 @@ public class Main {
         cfg.buildTree();
 //        cfg.printLinesWithTag();
         cfg.printChild();
+        System.out.println("\nCyclomatric complexity: " + cfg.cyclomatricComplexity());
     }
 }
