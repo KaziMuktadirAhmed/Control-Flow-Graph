@@ -120,6 +120,7 @@ public class CFG {
                         if(node.line.contains("}")) {
                             hadIf = false;
                             ifJumpOutPoints.add(node);
+                            parent = parentIf;
                         }
                         else {
                             parent = node;
@@ -130,6 +131,7 @@ public class CFG {
                         if(node.line.contains("}")) {
                             hadElseIf = false;
                             ifJumpOutPoints.add(node);
+                            parent = parentIf;
                         }
                         else {
                             parent = node;
