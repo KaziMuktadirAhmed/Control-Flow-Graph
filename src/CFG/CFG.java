@@ -239,8 +239,8 @@ public class CFG {
         return complexity;
     }
 
-    public HashMap<String, Integer> declaredVars() {
-        HashMap<String, Integer> vars= new HashMap<>();
+    public HashMap<String, ArrayList<Integer>> declaredVars() {
+        HashMap<String, ArrayList<Integer>> vars= new HashMap<>();
         for (Node node:nodes) {
             if(node instanceof declaration && !node.line().contains("(")) {
                 String[] chars = node.line().split("");
