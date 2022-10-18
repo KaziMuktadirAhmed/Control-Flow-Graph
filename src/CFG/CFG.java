@@ -148,7 +148,9 @@ public class CFG {
                         }
                     }
                     else if (hadDo) {
-                        hadDo = false;
+                        setParent(parent, node);
+//                        hadDo = false;
+                        parent = node;
                     }
                     else if (hadWhile) {
                         setParent(parent, node);
