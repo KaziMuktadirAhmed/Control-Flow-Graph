@@ -5,6 +5,7 @@ import Parser.Parser;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CFG {
     private final ArrayList<String> lines;
@@ -221,5 +222,15 @@ public class CFG {
         int edge_count = countEdge(), nodes = this.nodes.size();
         complexity = edge_count - nodes + 2;
         return complexity;
+    }
+
+    public HashMap<String, Integer> declaredVars() {
+        HashMap<String, Integer> vars= new HashMap<>();
+        for (Node node:nodes) {
+            if(node instanceof declaration && !node.line().contains("(")) {
+
+            }
+        }
+        return vars;
     }
 }
