@@ -213,7 +213,7 @@ public class CFG {
         return edgeCount;
     }
 
-    public int cyclomatricComplexity() {
+    public int cyclomaticComplexity() {
         int complexity = 0;
         int edge_count = countEdge(), nodes = this.nodes.size();
         complexity = edge_count - nodes + 2;
