@@ -219,6 +219,8 @@ public class CFG {
 
     public void printAllConditions() {
         for (Node node: nodes) {
+            if(node instanceof declaration && !node.line().contains("("))
+                System.out.println("Declaration:-"+node.line());
             if(node instanceof IFBlock)
                 System.out.println("IF node:-"+((IFBlock) node).condition);
             if(node instanceof ELSEIFBlock)
