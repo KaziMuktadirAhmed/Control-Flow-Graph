@@ -197,11 +197,10 @@ public class CFG {
 
     public void printChild() {
         for (Node node: nodes) {
-            System.out.print("node-"+node.line);
+            System.out.println("node-"+"[ "+node.line+" ]");
             for (Node child : node.childs) {
-                System.out.print("-child-"+child.line);
+                System.out.println("\t\t\t"+"-child-"+"[ "+child.line+" ]");
             }
-            System.out.println();
         }
     }
 
