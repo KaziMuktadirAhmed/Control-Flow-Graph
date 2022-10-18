@@ -217,6 +217,19 @@ public class CFG {
         return edgeCount;
     }
 
+    public void printAllConditions() {
+        for (Node node: nodes) {
+            if(node instanceof IFBlock)
+                System.out.println("IF node:-"+((IFBlock) node).condition);
+            if(node instanceof ELSEIFBlock)
+                System.out.println("ELSEIF node:-"+((ELSEIFBlock) node).condition);
+            if(node instanceof WHILEBlock)
+                System.out.println("WHILE node:-"+((WHILEBlock) node).condition);
+            if(node instanceof FORBlock)
+                System.out.println("FOR node:-"+((FORBlock) node).condition);
+        }
+    }
+
     public int cyclomaticComplexity() {
         int complexity = 0;
         int edge_count = countEdge(), nodes = this.nodes.size();
@@ -228,6 +241,7 @@ public class CFG {
         HashMap<String, Integer> vars= new HashMap<>();
         for (Node node:nodes) {
             if(node instanceof declaration && !node.line().contains("(")) {
+                String[] chars = node.line().split("");
 
             }
         }
