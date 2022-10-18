@@ -108,7 +108,10 @@ public class CFG {
                             }
                             ifJumpOutPoints.clear();
                         }
-                        else setParent(parent, node);
+                        else {
+                            setParent(parent, node);
+                            System.out.println(""+node.line);
+                        }
                         parent = node;
                     }
                     else if (hadIf) {
@@ -148,13 +151,20 @@ public class CFG {
                         hadDo = false;
                     }
                     else if (hadWhile) {
-                        hadWhile = false;
+                        setParent(parent, node);
+                        if(node.line.contains("}")) {
+                            hadWhile = false;
+                            setParent(node, parentFor);
+                        }
+                        else {
+                            parent = node;
+                        }
                     }
                     else if(hadFor) {
                         setParent(parent, node);
                         if(node.line.contains("}")) {
                             hadFor = false;
-                            parentFor.setJumpTO(node);
+                            setParent(node, parentFor);
                         }
                         else {
                             parent = node;
