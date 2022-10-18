@@ -109,6 +109,8 @@ public class CFG {
                                 setParent(par, node);
                             }
                             ifJumpOutPoints.clear();
+                            if(parent instanceof IFBlock || parent instanceof ELSEIFBlock)
+                                setParent(parent, node);
                         }
                         else {
                             setParent(parent, node);
