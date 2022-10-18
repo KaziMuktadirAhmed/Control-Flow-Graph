@@ -57,12 +57,10 @@ public class CFG {
                     hadElseIf = true;
 
                     if(parentIf instanceof IFBlock) {
-                        ((IFBlock) parentIf).setJumpTOElseIf((ELSEIFBlock) node);
-                        ((IFBlock) parentIf).hasElseIf = true;
+                        setParent(parentIf, node);
                     }
                     else if (parentIf instanceof ELSEIFBlock) {
-                        ((ELSEIFBlock) parentIf).setJumpTOElseIf((ELSEIFBlock) node);
-                        ((ELSEIFBlock) parentIf).hasElseIf = true;
+                        setParent(parentIf, node);
                     }
 
                     parentIf = node;
@@ -72,24 +70,22 @@ public class CFG {
                     hadElse = true;
 
                     if(parentIf instanceof IFBlock) {
-                        ((IFBlock) parentIf).setJumpTOElse((ELSEBlock) node);
-                        ((IFBlock) parentIf).hasElse = true;
+                        setParent(parentIf, node);
                     }
                     else if (parentIf instanceof ELSEIFBlock) {
-                        ((ELSEIFBlock) parentIf).setJumpTOElse((ELSEBlock) node);
-                        ((ELSEIFBlock) parentIf).hasElse = true;
+                        setParent(parentIf, node);
                     }
 
                     parent = node;
                 }
                 else if (node instanceof WHILEBlock) {
+                    setParent(parent, node);
                     if(hadDo){
                         hadDo = false;
                         setParent(node, parentDo);
                     }
                     else {
                         hadWhile = true;
-                        setParent(parent, node);
                         parentWhile = (WHILEBlock) node;
                     }
                     parent = node;
@@ -121,7 +117,6 @@ public class CFG {
                     }
                     else if (hadIf) {
                         setParent(parent, node);
-//                        parent = node;
                         if(node.line.contains("}")) {
                             hadIf = false;
                             ifJumpOutPoints.add(node);
@@ -132,7 +127,6 @@ public class CFG {
                     }
                     else if (hadElseIf) {
                         setParent(parent, node);
-//                        parent = node;
                         if(node.line.contains("}")) {
                             hadElseIf = false;
                             ifJumpOutPoints.add(node);
@@ -143,7 +137,6 @@ public class CFG {
                     }
                     else if(hadElse) {
                         setParent(parent, node);
-//                        parent = node;
                         if(node.line.contains("}")) {
                             hadElse = false;
                             ifJumpOutPoints.add(node);
