@@ -83,9 +83,15 @@ public class CFG {
                     parent = node;
                 }
                 else if (node instanceof WHILEBlock) {
-                    hadWhile = true;
-                    setParent(parent, node);
-                    parentWhile = (WHILEBlock) node;
+                    if(hadDo){
+                        hadDo = false;
+                        setParent(node, parentDo);
+                    }
+                    else {
+                        hadWhile = true;
+                        setParent(parent, node);
+                        parentWhile = (WHILEBlock) node;
+                    }
                     parent = node;
                 }
                 else if (node instanceof FORBlock) {
@@ -110,7 +116,6 @@ public class CFG {
                         }
                         else {
                             setParent(parent, node);
-                            System.out.println(""+node.line);
                         }
                         parent = node;
                     }
@@ -149,14 +154,14 @@ public class CFG {
                     }
                     else if (hadDo) {
                         setParent(parent, node);
-//                        hadDo = false;
                         parent = node;
                     }
                     else if (hadWhile) {
                         setParent(parent, node);
                         if(node.line.contains("}")) {
                             hadWhile = false;
-                            setParent(node, parentFor);
+                            setParent(node, parentWhile);
+                            parent = parentWhile;
                         }
                         else {
                             parent = node;
@@ -167,6 +172,7 @@ public class CFG {
                         if(node.line.contains("}")) {
                             hadFor = false;
                             setParent(node, parentFor);
+                            parent = parentFor;
                         }
                         else {
                             parent = node;
@@ -198,17 +204,11 @@ public class CFG {
 
     public void printChild() {
         for (Node node: nodes) {
-            if(node.childs.size() > 0){
-                if(node instanceof preprocess) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
-                else if(node instanceof declaration) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
-                else if(node instanceof statement) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
-                else if(node instanceof IFBlock) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
-                else if(node instanceof ELSEIFBlock) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
-                else if(node instanceof ELSEBlock) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
-                else if(node instanceof FORBlock) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
-                else if(node instanceof WHILEBlock) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
-                else if(node instanceof DOPoint) System.out.println("node-"+node.line+"-child-"+node.childs.get(0).line);
+            System.out.print("node-"+node.line);
+            for (Node child : node.childs) {
+                System.out.print("-child-"+child.line);
             }
+            System.out.println();
         }
     }
 }

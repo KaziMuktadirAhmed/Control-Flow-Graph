@@ -13,7 +13,7 @@ public class Main {
     public static void test() throws FileNotFoundException {
         CFG cfg = new CFG("test.txt");
         cfg.buildTree();
-        cfg.printLinesWithTag();
+//        cfg.printLinesWithTag();
         cfg.printChild();
     }
 }
